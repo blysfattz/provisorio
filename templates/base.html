@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Life</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="background-blur blur1"></div>
+<div class="background-blur blur2"></div>
+<div class="stars"></div>
+
+<nav class="navbar">
+    <div class="logo">✦ Virtual Life</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/registrar">Cadastre-se</a>
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<script src="{{ url_for('static', filename='js/effects.js') }}"></script>
+</body>
+</html>
