@@ -437,6 +437,11 @@ body{
 .cta-text a{
 
     color:#ff8cf4;
+    .erro {
+    color: #ff6b6b;
+    font-size: 0.82rem;
+    margin: -6px 0 8px 0;
+}
 
     text-decoration:none;
 
