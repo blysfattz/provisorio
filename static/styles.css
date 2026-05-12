@@ -453,3 +453,8 @@ body{
     text-shadow:
     0 0 12px rgba(255,105,255,0.7);
 }
+.erro {
+    color: #ff6b6b;
+    font-size: 0.82rem;
+    margin: -6px 0 8px 0;
+}
