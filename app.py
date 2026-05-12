@@ -14,7 +14,7 @@ db.init_app(app)
 
 @lm.user_loader
 def user_loader(id):
-    return db.session.get(Usuario, int(id))  # corrigido
+    return db.session.get(Usuario, int(id))  
 
 @app.route('/')
 def inicial():
@@ -34,7 +34,7 @@ def login():
     user  = db.session.query(Usuario).filter_by(nome=nome).first()
     if not user or not check_password_hash(user.senha, senha):
         return render_template('login.html', erro='Nome ou senha incorretos.')
-    login_user(user)  # corrigido (estava login.user)
+    login_user(user)  
     return redirect(url_for('home'))
 
 @app.route('/registrar', methods=['POST', 'GET'])
