@@ -458,3 +458,20 @@ body{
     font-size: 0.82rem;
     margin: -6px 0 8px 0;
 }
+
+.requisitos {
+    list-style: none;
+    padding: 0;
+    margin: -8px 0 12px 0;
+    font-size: 0.82rem;
+}
+
+.requisitos li {
+    color: #aaa;
+    margin-bottom: 3px;
+    transition: color 0.3s;
+}
+
+.requisitos .icone {
+    margin-right: 6px;
+}
