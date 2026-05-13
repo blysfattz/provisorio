@@ -11,10 +11,17 @@
             <p class="erro">{{ erro_nome }}</p>
         {% endif %}
 
-        <input type="password" name="senhaForm" placeholder="Senha">
+        <input type="password" name="senhaForm" id="senhaInput" placeholder="Senha">
         {% if erro_senha %}
             <p class="erro">{{ erro_senha }}</p>
         {% endif %}
+
+        <ul class="requisitos">
+            <li id="req-tamanho">  <span class="icone">✖</span> Mínimo 6 caracteres</li>
+            <li id="req-maiuscula"><span class="icone">✖</span> Uma letra maiúscula</li>
+            <li id="req-minuscula"><span class="icone">✖</span> Uma letra minúscula</li>
+            <li id="req-especial"> <span class="icone">✖</span> Um caractere especial (!@#$...)</li>
+        </ul>
 
         <input type="password" name="confirmaForm" placeholder="Confirmar senha">
         {% if erro_confirma %}
@@ -25,4 +32,19 @@
         <span>Já tem uma conta? <a href="/login">Login</a></span>
     </form>
 </div>
+
+<script>
+document.getElementById('senhaInput').addEventListener('input', function() {
+    const senha = this.value;
+    checar('req-tamanho',  senha.length >= 6);
+    checar('req-maiuscula', /[A-Z]/.test(senha));
+    checar('req-minuscula', /[a-z]/.test(senha));
+    checar('req-especial',  /[^a-zA-Z0-9]/.test(senha));
+});
+function checar(id, valido) {
+    const el = document.getElementById(id);
+    el.style.color = valido ? '#4caf50' : '#aaa';
+    el.querySelector('.icone').textContent = valido ? '✔' : '✖';
+}
+</script>
 {% endblock %}
