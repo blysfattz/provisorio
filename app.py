@@ -4,6 +4,7 @@ from models import Usuario
 from db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+import re 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-key-virtual-life-2026')
@@ -49,10 +50,17 @@ def registrar():
         erros['erro_nome'] = 'O nome é obrigatório.'
     elif db.session.query(Usuario).filter_by(nome=nome).first():
         erros['erro_nome'] = 'Este nome de usuário já está em uso.'
+
     if not senha:
         erros['erro_senha'] = 'A senha é obrigatória.'
     elif len(senha) < 6:
         erros['erro_senha'] = 'A senha deve ter no mínimo 6 caracteres.'
+    elif not re.search(r'[A-Z]', senha):
+        erros['erro_senha'] = 'A senha deve ter pelo menos uma letra maiúscula.'
+    elif not re.search(r'[a-z]', senha):
+        erros['erro_senha'] = 'A senha deve ter pelo menos uma letra minúscula.'
+    elif not re.search(r'[^a-zA-Z0-9]', senha):
+        erros['erro_senha'] = 'A senha deve ter pelo menos um caractere especial.'
     if senha and confirma and senha != confirma:
         erros['erro_confirma'] = 'As senhas não coincidem.'
     if erros:
