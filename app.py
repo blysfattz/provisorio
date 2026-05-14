@@ -1,18 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user
-from models import Usuario
-from db import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from db import db
 import os
 import re 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-key-virtual-life-2026')
-lm = LoginManager(app)
-lm.login_view = 'login'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
 db.init_app(app)
 
+from models import Usuario
+lm = LoginManager(app)
+lm.login_view = 'login'
+
+with app.app_context():
+    db.create_all()
+    
 @lm.user_loader
 def user_loader(id):
     return db.session.get(Usuario, int(id))  
@@ -78,6 +82,4 @@ def logout():
     return redirect(url_for('inicial'))
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        app.run(debug=True)
+    app.run(debug=True)
